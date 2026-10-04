@@ -25,8 +25,8 @@ def package_carousel(state: CarouselState, out_dir: str | Path) -> Path:
             "flagged_for_curator": img.flagged,
             "retry_notes": img.retry_notes,
         })
-    (out / "caption.txt").write_text(state.plan.caption)
+    (out / "caption.txt").write_text(state.plan.caption, encoding="utf-8")
     (out / "carousel.json").write_text(json.dumps(
-        {"mood": state.plan.mood, "caption": state.plan.caption, "slides": slides}, indent=2))
+        {"mood": state.plan.mood, "caption": state.plan.caption, "slides": slides}, indent=2), encoding="utf-8")
     state.output_dir = str(out)
     return out

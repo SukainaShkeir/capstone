@@ -56,3 +56,16 @@ def test_flagged_after_two_retries(tmp_path):
                                      generator=McpImageGenerator("placeholder")))
     img = state.images[0]
     assert img.flagged and not img.passed and len(img.retry_notes) == 3
+
+
+def test_read_transcript_encodings(tmp_path):
+    from carousel.cli import read_transcript
+
+    text = "It’s a “test” — café \U0001F600"
+    for name, enc in [("a", "utf-8"), ("b", "utf-8-sig"), ("c", "utf-16")]:
+        f = tmp_path / name
+        f.write_bytes(text.encode(enc))
+        assert read_transcript(f) == text
+    f = tmp_path / "d"
+    f.write_bytes("café".encode("cp1252"))
+    assert read_transcript(f) == "café"

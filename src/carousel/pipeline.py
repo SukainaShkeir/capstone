@@ -13,7 +13,7 @@ DEFAULT_STYLE = Path(__file__).resolve().parents[2] / "style_guide.json"
 
 
 def load_style(path: str | Path | None = None) -> StyleGuide:
-    return StyleGuide(**json.loads(Path(path or DEFAULT_STYLE).read_text()))
+    return StyleGuide(**json.loads(Path(path or DEFAULT_STYLE).read_text(encoding="utf-8")))
 
 
 async def run_pipeline(transcript: str, out_dir: str, style: StyleGuide | None = None,
