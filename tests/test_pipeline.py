@@ -86,3 +86,15 @@ def test_env_loader_handles_bom_and_utf16(tmp_path):
                               "import os, carousel; print(os.environ.get('OPENAI_API_KEY'), carousel.ENV_NAMES)"],
                              cwd=d, env=env, capture_output=True, text=True).stdout
         assert out.startswith("abc"), (name, out)
+
+
+def test_package_keeps_arabic_readable(tmp_path):
+    from carousel.state import CarouselState, SlideImage, SlidePlan, SlideText
+    from carousel.tools.package import package_carousel
+
+    st = CarouselState(transcript="t", style_guide=load_style())
+    st.plan = SlidePlan(slides=[SlideText(headline="التصميم", body="نص")], caption="وصف", mood="m")
+    st.images = [SlideImage(index=1, prompt="p")]
+    package_carousel(st, tmp_path)
+    raw = (tmp_path / "carousel.json").read_text(encoding="utf-8")
+    assert "التصميم" in raw and "\\u0627" not in raw
