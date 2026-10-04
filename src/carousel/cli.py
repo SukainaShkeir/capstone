@@ -22,11 +22,11 @@ def check_keys() -> None:
     """Fail early with a plain-language message instead of a deep traceback."""
     import os
 
-    from dotenv import find_dotenv
-
     if not (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")):
-        env = find_dotenv(usecwd=True)
-        where = f"Found .env at {env}, but" if env else f"No .env file found in {Path.cwd()}, and"
+        from . import ENV_NAMES, ENV_PATH
+
+        where = (f"Found .env at {ENV_PATH} with settings {ENV_NAMES or 'NONE'}, but"
+                 if ENV_PATH else f"No .env file found in {Path.cwd()}, and")
         raise SystemExit(
             f"{where} GEMINI_API_KEY is empty.\n"
             "Create a file named exactly .env (not .env.txt) in this folder containing:\n"
