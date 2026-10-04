@@ -1,0 +1,29 @@
+[project]
+name = "carousel-agents"
+version = "0.1.0"
+description = "Multi-agent system that turns a video transcript into an Instagram carousel package."
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=1.11",
+    "mcp>=1.28",
+    "pydantic>=2.8",
+    "pillow>=10",
+]
+
+[project.optional-dependencies]
+openai = ["openai>=1.50"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+carousel = "carousel.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
