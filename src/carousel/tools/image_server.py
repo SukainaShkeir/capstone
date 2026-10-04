@@ -38,7 +38,12 @@ def _openai(prompt: str, style_reference: str, out: Path) -> None:
     from openai import OpenAI
 
     full = f"{prompt}\n\nShared style (follow exactly): {style_reference}\nNo text in the image."
-    result = OpenAI().images.generate(model="gpt-image-1", prompt=full, size="1024x1024")
+    result = OpenAI().images.generate(
+        model=os.environ.get("OPENAI_IMAGE_MODEL", "gpt-image-1"),
+        prompt=full,
+        size="1024x1024",
+        quality=os.environ.get("OPENAI_IMAGE_QUALITY", "medium"),  # low | medium | high
+    )
     out.write_bytes(base64.b64decode(result.data[0].b64_json))
 
 
