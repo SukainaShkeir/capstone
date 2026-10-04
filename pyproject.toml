@@ -8,6 +8,7 @@ dependencies = [
     "mcp>=1.28",
     "pydantic>=2.8",
     "pillow>=10",
+    "python-dotenv>=1.0",
 ]
 
 [project.optional-dependencies]

@@ -20,6 +20,8 @@ transcript ─► Content Writer ─► Prompt Writer ─► Designer ─► pac
 - Slides still failing after 2 retries are marked `flagged_for_curator` in `carousel.json`.
 
 ## Run
+Copy `.env.example` to `.env` and fill in your keys (the program reads `.env` automatically; it is git-ignored).
+
 ```bash
 pip install -e '.[dev]'        # add ',openai' for the OpenAI image backend
 export GEMINI_API_KEY=...
