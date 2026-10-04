@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Multi-agent system that turns a video transcript into an Instagram carousel package."
 requires-python = ">=3.10"
 dependencies = [
-    "google-genai>=1.0",
+    "openai>=1.90",
     "mcp>=1.28",
     "pydantic>=2.8",
     "pillow>=10",
@@ -12,7 +12,6 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-openai = ["openai>=1.50"]
 dev = ["pytest>=8"]
 
 [project.scripts]

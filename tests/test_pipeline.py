@@ -76,13 +76,13 @@ def test_env_loader_handles_bom_and_utf16(tmp_path):
     import subprocess
     import sys
 
-    for name, raw in [("bom", b"\xef\xbb\xbfGEMINI_API_KEY=abc\r\nIMAGE_BACKEND=placeholder\r\n"),
-                      ("u16", "GEMINI_API_KEY=abc\r\n".encode("utf-16"))]:
+    for name, raw in [("bom", b"\xef\xbb\xbfOPENAI_API_KEY=abc\r\nIMAGE_BACKEND=placeholder\r\n"),
+                      ("u16", "OPENAI_API_KEY=abc\r\n".encode("utf-16"))]:
         d = tmp_path / name
         d.mkdir()
         (d / ".env").write_bytes(raw)
-        env = {k: v for k, v in os.environ.items() if k != "GEMINI_API_KEY"}
+        env = {k: v for k, v in os.environ.items() if k != "OPENAI_API_KEY"}
         out = subprocess.run([sys.executable, "-c",
-                              "import os, carousel; print(os.environ.get('GEMINI_API_KEY'), carousel.ENV_NAMES)"],
+                              "import os, carousel; print(os.environ.get('OPENAI_API_KEY'), carousel.ENV_NAMES)"],
                              cwd=d, env=env, capture_output=True, text=True).stdout
         assert out.startswith("abc"), (name, out)

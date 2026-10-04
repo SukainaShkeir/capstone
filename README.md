@@ -15,7 +15,7 @@ transcript ─► Content Writer ─► Prompt Writer ─► Designer ─► pac
 | Designer | `agents/designer.py` | Calls `generate_slide_image` (MCP), `check_slide`, retries, `package_carousel` |
 
 - `tools/image_server.py` – MCP server with `generate_slide_image`; swap the backend with `IMAGE_BACKEND`
-  (`placeholder` offline gradients, `openai` = `gpt-image-1`).
+  (`placeholder` offline gradients, `openai` = `gpt-image-1-mini`).
 - Shared state (`state.py`) grows at each handoff; the style guide (`style_guide.json`) reaches every agent.
 - Slides still failing after 2 retries are marked `flagged_for_curator` in `carousel.json`.
 
@@ -23,12 +23,12 @@ transcript ─► Content Writer ─► Prompt Writer ─► Designer ─► pac
 Copy `.env.example` to `.env` and fill in your keys (the program reads `.env` automatically; it is git-ignored).
 
 ```bash
-pip install -e '.[dev]'        # add ',openai' for the OpenAI image backend
-export GEMINI_API_KEY=...
+pip install -e '.[dev]'
+export OPENAI_API_KEY=...
 carousel transcript.txt -o output --max-slides 8
 pytest                         # offline: scripted LLM + real MCP server
 ```
-Text and vision-review agents use Gemini (default `gemini-2.5-flash`, override with `CAROUSEL_MODEL`).
+One OpenAI key does everything: text + image review use `gpt-6-luna` (override with `CAROUSEL_MODEL`), images use `gpt-image-1-mini` at `low` quality (`OPENAI_IMAGE_MODEL`, `OPENAI_IMAGE_QUALITY`).
 
 ## Not built yet
 A2A deployment of the Designer (optional in the design) — the Designer already takes an

@@ -22,20 +22,17 @@ def check_keys() -> None:
     """Fail early with a plain-language message instead of a deep traceback."""
     import os
 
-    if not (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")):
+    if not os.environ.get("OPENAI_API_KEY"):
         from . import ENV_NAMES, ENV_PATH
 
         where = (f"Found .env at {ENV_PATH} with settings {ENV_NAMES or 'NONE'}, but"
                  if ENV_PATH else f"No .env file found in {Path.cwd()}, and")
         raise SystemExit(
-            f"{where} GEMINI_API_KEY is empty.\n"
+            f"{where} OPENAI_API_KEY is empty.\n"
             "Create a file named exactly .env (not .env.txt) in this folder containing:\n"
-            "GEMINI_API_KEY=your-key-here\n"
+            "OPENAI_API_KEY=your-key-here\n"
             "(no quotes, no spaces around =)"
         )
-    if os.environ.get("IMAGE_BACKEND") == "openai" and not os.environ.get("OPENAI_API_KEY"):
-        raise SystemExit("IMAGE_BACKEND=openai but OPENAI_API_KEY is empty. "
-                         "Add the key to .env, or set IMAGE_BACKEND=placeholder.")
 
 
 def main() -> None:

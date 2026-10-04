@@ -1,4 +1,4 @@
-"""check_slide: vision review (Gemini) of one generated image against its slide + style guide."""
+"""check_slide: vision review of one generated image against its slide + style guide."""
 from __future__ import annotations
 
 from pydantic import BaseModel
