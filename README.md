@@ -22,11 +22,11 @@ transcript ─► Content Writer ─► Prompt Writer ─► Designer ─► pac
 ## Run
 ```bash
 pip install -e '.[dev]'        # add ',openai' for the OpenAI image backend
-export ANTHROPIC_API_KEY=...
+export GEMINI_API_KEY=...
 carousel transcript.txt -o output --max-slides 8
 pytest                         # offline: scripted LLM + real MCP server
 ```
-Text agents use `claude-opus-5-5` (override with `CAROUSEL_MODEL`).
+Text and vision-review agents use Gemini (default `gemini-2.5-flash`, override with `CAROUSEL_MODEL`).
 
 ## Not built yet
 A2A deployment of the Designer (optional in the design) — the Designer already takes an

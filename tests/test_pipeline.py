@@ -11,7 +11,7 @@ from carousel.tools.image_client import McpImageGenerator
 
 
 class FakeLLM:
-    """Scripted stand-in for the Claude wrapper; first image check fails once."""
+    """Scripted stand-in for the LLM wrapper; first image check fails once."""
 
     def __init__(self, fail_first_check=True, always_fail=False):
         self.checks = 0
